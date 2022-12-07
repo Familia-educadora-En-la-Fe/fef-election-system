@@ -7,7 +7,7 @@ const Home = () => {
     <div>
       <div className="flex justify-center items-center">
         <div className="lg:w-full xl:max-w-screen-sm">
-          <div className="py-12 bg-indigo-100 lg:bg-white lg:px-12 -ml-96">
+          <div className="py-12 lg:bg-white lg:px-12 -ml-96">
           </div>
 
           <div className="mt-10 px-12 sm:px-24 md:px-48 lg:px-12 lg:mt-16 xl:px-24 xl:max-w-2xl ">
