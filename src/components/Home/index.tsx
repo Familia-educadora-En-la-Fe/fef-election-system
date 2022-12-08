@@ -7,7 +7,10 @@ const Home = () => {
     <div>
       <div className="flex justify-center items-center">
         <div className="lg:w-full xl:max-w-screen-sm">
-          <div className="py-12 lg:bg-white lg:px-12 -ml-96">
+          <div className="py-12 lg:bg-white lg:px-12 -ml-96 just">
+          </div>
+          <div className="flex flex-row justify-center">
+            <img src="./images/fef-logo.png" className="rounded-full" width="150" height="150"/>
           </div>
 
           <div className="mt-10 px-12 sm:px-24 md:px-48 lg:px-12 lg:mt-16 xl:px-24 xl:max-w-2xl ">
@@ -38,7 +41,7 @@ const Home = () => {
               </div>
               <div className="mt-12 text-sm font-display font-semibold text-gray-700 text-center">
                 ¿No recuerdas tu QUIF? <a className="cursor-pointer text-indigo-600 hover:text-indigo-800"
-                                           href="/login">Contactanos</a>
+                                           href="mailto:contact@contacto.com">Contactanos</a>
               </div>
             </div>
           </div>
