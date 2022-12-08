@@ -17,8 +17,8 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/fef-election-system/" element={<Home/>}/>
-        <Route path="/fef-election-system/admin-login" element={<Login/>}/>
-        <Route path="/fef-election-system/dashboard" element={<AuthRoute><Dashboard/></AuthRoute>}/>
+        <Route path="/fef-election-system/#/admin-login" element={<Login/>}/>
+        <Route path="/fef-election-system/#/dashboard" element={<AuthRoute><Dashboard/></AuthRoute>}/>
       </Routes>
     </BrowserRouter>
   );
