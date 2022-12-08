@@ -8,6 +8,7 @@ import './index.css'
 import Login from "./components/Login";
 import Dashboard from "./components/Dashbaord";
 import AuthRoute from "./components/AuthRoute";
+import Votation from "./components/Votation";
 
 const app = initializeApp(config.firebaseConfig);
 export const db = getFirestore(app);
@@ -18,6 +19,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home/>}/>
         <Route path="/admin-login" element={<Login/>}/>
+        <Route path="/votacion" element={<Votation/>}/>
         <Route path="/dashboard" element={<AuthRoute><Dashboard/></AuthRoute>}/>
       </Routes>
     </HashRouter>

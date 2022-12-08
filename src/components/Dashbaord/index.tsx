@@ -56,10 +56,6 @@ const Dashboard = () => {
   return (
     <>
       <div className="flex flex-col">
-        <div className="flex flex-row justify-center mt-4">
-          <StatsCard title="Ya votaron" value={missing} />
-          <StatsCard title="Faltan por votar" value={hasVoted}/>
-        </div>
         <div className="flex justify-end mt-4">
           <div
             className="py-2.7 text-size-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap px-4 transition-colors cursor-pointer"
@@ -67,7 +63,11 @@ const Dashboard = () => {
             <button className="bg-indigo-500 text-white p-2 rounded-md hover:bg-indigo-600">Cerrar Sesion</button>
           </div>
         </div>
-        <div className="mx-24">
+        <div className="flex flex-row justify-center mt-4">
+          <StatsCard title="Faltan por Votar" value={missing} />
+          <StatsCard title="Votaron" value={hasVoted}/>
+        </div>
+        <div className="mx-8">
           <UserTable users={users}/>
         </div>
       </div>

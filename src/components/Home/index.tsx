@@ -1,7 +1,53 @@
-import React, {useState} from 'react'
+import React, {useCallback, useEffect, useState} from 'react'
+import {collection, getDocs} from "firebase/firestore";
+import {db} from "../../App";
+import {User} from "../Dashbaord";
+import {useNavigate} from "react-router-dom";
+
 const Home = () => {
+  const navigate = useNavigate()
   const [error, setError] = useState<boolean>(false)
-  const [errorMssg,setErrorMssg] = useState<string>('')
+  const [inputQuif, setInputQuif] = useState<string>('')
+  const [users, setUser] = useState<User[]>([])
+
+
+  const getUsers = useCallback(async () => {
+    const querySnapshot = await getDocs(collection(db, "users"));
+    setUser([])
+    let noneVoted = 0
+    let vote = 0
+    querySnapshot.forEach((doc) => {
+      if (!doc.data().voted) {
+        noneVoted++
+      } else {
+        vote++
+      }
+      const isUser = {
+        id: doc.id,
+        name: doc.data().name,
+        area: doc.data().area,
+        quif: doc.data().quif,
+        voted: (doc.data().voted ? 'Si' : 'No'),
+        rol: doc.data().rol,
+      }
+      setUser(user => [...user, isUser])
+    });
+  }, [])
+
+  useEffect(() => {
+    getUsers()
+  }, [])
+
+  const handleQuifs = useCallback(async (e: any) => {
+    e.preventDefault()
+    users.forEach((doc) => {
+        if (doc.quif === inputQuif) {
+          navigate('/votacion')
+        }
+      }
+    );
+    setError(true)
+  }, [inputQuif])
 
   return (
     <div>
@@ -18,30 +64,32 @@ const Home = () => {
                     xl:text-bold">Ingresa tu QUIF </h2>
 
             <div className="mt-12">
-              <form >
+              <form>
                 <div>
                   <div className="text-sm font-bold text-gray-700 tracking-wide">QUIF</div>
                   <input
                     className="w-full text-lg py-2 border-b border-gray-300 focus:outline-none focus:border-indigo-500"
-                    type="email"
+                    type="text"
                     placeholder="Ejemplo: PASCH9810FEF"
+                    onChange={(e) => setInputQuif(e.target.value)}
                     required/>
                 </div>
                 <div className="mt-10">
                   <button type="submit" className="bg-indigo-500 text-gray-100 p-4 w-full rounded-full tracking-wide
                                 font-semibold font-display focus:outline-none focus:shadow-outline hover:bg-indigo-600
-                                shadow-lg">
+                                shadow-lg" onClick={handleQuifs}>
                     Iniciar
                   </button>
 
                 </div>
               </form>
               <div className="mt-4 w-full flex justify-center items-center">
-                {error && <span className="text-red-500">{errorMssg}</span>}
+                {error &&
+                    <span className="text-red-500">Lo siento no encontramos ese QUIF en nuestra base de datos</span>}
               </div>
               <div className="mt-12 text-sm font-display font-semibold text-gray-700 text-center">
                 ¿No recuerdas tu QUIF? <a className="cursor-pointer text-indigo-600 hover:text-indigo-800"
-                                           href="mailto:contact@contacto.com">Contactanos</a>
+                                          href="mailto:contact@contacto.com">Contactanos</a>
               </div>
             </div>
           </div>
