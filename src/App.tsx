@@ -1,5 +1,5 @@
 import React from 'react';
-import {BrowserRouter, Route, Routes} from 'react-router-dom';
+import {HashRouter, Route, Routes} from 'react-router-dom';
 import {initializeApp} from 'firebase/app';
 import {getFirestore} from 'firebase/firestore';
 import {config} from "./config/config";
@@ -14,13 +14,13 @@ export const db = getFirestore(app);
 
 function App() {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <Routes>
-        <Route path="/fef-election-system/" element={<Home/>}/>
-        <Route path="/fef-election-system/#/admin-login" element={<Login/>}/>
-        <Route path="/fef-election-system/#/dashboard" element={<AuthRoute><Dashboard/></AuthRoute>}/>
+        <Route path="/" element={<Home/>}/>
+        <Route path="/admin-login" element={<Login/>}/>
+        <Route path="/dashboard" element={<AuthRoute><Dashboard/></AuthRoute>}/>
       </Routes>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 
