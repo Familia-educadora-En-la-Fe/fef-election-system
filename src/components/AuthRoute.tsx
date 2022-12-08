@@ -20,7 +20,7 @@ const AuthRoute = (props: any) =>{
       setLoading(false)
     }else{
       console.error('unauthorized')
-      navigate('/fef-election-system/')
+      navigate('/')
     }
   })
 

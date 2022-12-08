@@ -20,7 +20,7 @@ const Login = () => {
     event.preventDefault()
     signInWithEmailAndPassword(auth,email,password).then((userCredential) => {
       const user = userCredential.user
-      navigate('/fef-election-system/dashboard')
+      navigate('/dashboard')
     }).catch((error)=>{
       setError(true)
     })
