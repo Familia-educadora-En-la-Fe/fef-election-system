@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/fef-election-system/static/css/main.c02c418b.css",
-    "main.js": "/fef-election-system/static/js/main.266fc2dc.js",
+    "main.css": "/fef-election-system/static/css/main.f4a3a0a6.css",
+    "main.js": "/fef-election-system/static/js/main.f85c3831.js",
     "static/js/787.13c3de6e.chunk.js": "/fef-election-system/static/js/787.13c3de6e.chunk.js",
     "index.html": "/fef-election-system/index.html",
-    "main.c02c418b.css.map": "/fef-election-system/static/css/main.c02c418b.css.map",
-    "main.266fc2dc.js.map": "/fef-election-system/static/js/main.266fc2dc.js.map",
+    "main.f4a3a0a6.css.map": "/fef-election-system/static/css/main.f4a3a0a6.css.map",
+    "main.f85c3831.js.map": "/fef-election-system/static/js/main.f85c3831.js.map",
     "787.13c3de6e.chunk.js.map": "/fef-election-system/static/js/787.13c3de6e.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.c02c418b.css",
-    "static/js/main.266fc2dc.js"
+    "static/css/main.f4a3a0a6.css",
+    "static/js/main.f85c3831.js"
   ]
 }
