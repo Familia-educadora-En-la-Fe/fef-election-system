@@ -1,15 +1,12 @@
 {
   "files": {
-    "main.css": "/fef-election-system/static/css/main.f4a3a0a6.css",
-    "main.js": "/fef-election-system/static/js/main.bd58f66e.js",
-    "static/js/787.13c3de6e.chunk.js": "/fef-election-system/static/js/787.13c3de6e.chunk.js",
-    "index.html": "/fef-election-system/index.html",
-    "main.f4a3a0a6.css.map": "/fef-election-system/static/css/main.f4a3a0a6.css.map",
-    "main.bd58f66e.js.map": "/fef-election-system/static/js/main.bd58f66e.js.map",
-    "787.13c3de6e.chunk.js.map": "/fef-election-system/static/js/787.13c3de6e.chunk.js.map"
+    "main.css": "/fef-election-system/static/css/main.896c124a.css",
+    "main.js": "/fef-election-system/static/js/main.c50c585e.js",
+    "static/js/27.30d48b76.chunk.js": "/fef-election-system/static/js/27.30d48b76.chunk.js",
+    "index.html": "/fef-election-system/index.html"
   },
   "entrypoints": [
-    "static/css/main.f4a3a0a6.css",
-    "static/js/main.bd58f66e.js"
+    "static/css/main.896c124a.css",
+    "static/js/main.c50c585e.js"
   ]
 }
