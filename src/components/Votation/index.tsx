@@ -1,6 +1,6 @@
 import React, {useCallback, useEffect, useState} from "react";
-import {useParams} from "react-router-dom";
-import {collection, getDocs, query, where} from "firebase/firestore";
+import {useNavigate, useParams} from "react-router-dom";
+import {collection, doc, getDocs, query, where,updateDoc} from "firebase/firestore";
 import {db} from "../../App";
 import {User} from "../Dashbaord";
 import Swal from 'sweetalert2'
@@ -8,6 +8,7 @@ import Swal from 'sweetalert2'
 type candidate = {
   id: string,
   names: string,
+  votes: number,
 }
 
 const Votation = () => {
@@ -16,6 +17,7 @@ const Votation = () => {
   const [candidates, setCandidates] = useState<candidate[]>([])
   const [user, setUser] = useState<User>()
   const [selected, setSelected] = useState<string>('')
+  const navigate = useNavigate()
 
   const getCandidates = useCallback(async () => {
     const querySnapshot = await getDocs(collection(db, "candiadates"));
@@ -25,6 +27,7 @@ const Votation = () => {
       const isCandidate = {
         id: doc.id,
         names: doc.data().names,
+        votes: doc.data().votes,
       }
       setCandidates(cand => [...cand, isCandidate])
     });
@@ -42,24 +45,46 @@ const Votation = () => {
         voted: (doc.data().voted ? 'Si' : 'No'),
         rol: doc.data().rol,
       }
+
       setUser(isUser)
     });
   }, [])
 
   useEffect(()=>{
-    getUser().catch(e => console.log(e))
+    getUser().catch(()=>{
+      navigate('/')
+    })
     getCandidates().catch(e => console.log(e))
 
   },[])
 
   useEffect(() => {
     if(user?.voted === 'Si'){
-      return alert('Ya votaste')
+      Swal.fire(
+        'Lo sentimos!',
+        'Este QUIF ya voto!',
+        'error'
+      ).then(()=>{
+        navigate('/')
+      })
     }
+
   },[user])
 
   const handleVote = useCallback(async (e: any) => {
     e.preventDefault()
+    if(user === undefined || user === null){
+      return Swal.fire(
+        'Lo sentimos!',
+        'Este QUIF no existe!',
+        'error'
+      ).then(()=>{
+        navigate('/')
+      })
+    }
+
+
+
     Swal.fire({
       title: 'Estas apunto de votar por '+ selected ,
       text: "Una vez que votes, no podras cambiarlo ¿Estas segur@?!",
@@ -71,6 +96,17 @@ const Votation = () => {
       confirmButtonText: 'Confirmar!'
     }).then((result) => {
       if (result.isConfirmed) {
+        const userVote = doc(db, "users", user.id);
+        updateDoc(userVote, {voted: true});
+
+        candidates.forEach(cand => {
+          if(cand.names === selected){
+            updateDoc(doc(db, "candiadates", cand.id), {
+              votes: cand.votes + 1
+            })
+          }
+        })
+
         Swal.fire(
           'Exito!',
           'Hemos registrado tu voto.',
