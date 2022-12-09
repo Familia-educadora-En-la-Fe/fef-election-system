@@ -8,6 +8,7 @@ import {db} from "../../App";
 
 export type User = {
   id: string,
+  name: string,
   area: string,
   quif: string,
   voted:string,

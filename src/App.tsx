@@ -19,7 +19,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home/>}/>
         <Route path="/admin-login" element={<Login/>}/>
-        <Route path="/votacion" element={<Votation/>}/>
+        <Route path="/votacion/:quif" element={<Votation/>}/>
         <Route path="/dashboard" element={<AuthRoute><Dashboard/></AuthRoute>}/>
       </Routes>
     </HashRouter>

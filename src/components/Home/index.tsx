@@ -7,6 +7,7 @@ import {useNavigate} from "react-router-dom";
 const Home = () => {
   const navigate = useNavigate()
   const [error, setError] = useState<boolean>(false)
+  const [errorMssg, setErrorMssg] = useState<string>('')
   const [inputQuif, setInputQuif] = useState<string>('')
   const [users, setUser] = useState<User[]>([])
 
@@ -40,13 +41,32 @@ const Home = () => {
 
   const handleQuifs = useCallback(async (e: any) => {
     e.preventDefault()
+    let exists = false
+    let alreadyVoted = false
     users.forEach((doc) => {
         if (doc.quif === inputQuif) {
-          navigate('/votacion')
+          exists = true
+          if(doc.voted === 'Si'){
+            alreadyVoted = true
+          }
         }
-      }
-    );
+      });
+
+    if (exists && !alreadyVoted) {
+      console.log('YA PUEDES VOTAR')
+      return navigate(`/votacion/${inputQuif}`)
+    }
+
+    if(exists && alreadyVoted){
+      setErrorMssg('Lo sentimos este QUIF ya ha votado')
+      setError(true)
+      return
+    }
+
+    setErrorMssg('Lo sentimos este QUIF no existe')
     setError(true)
+    return
+
   }, [inputQuif])
 
   return (
@@ -85,7 +105,7 @@ const Home = () => {
               </form>
               <div className="mt-4 w-full flex justify-center items-center">
                 {error &&
-                    <span className="text-red-500">Lo siento no encontramos ese QUIF en nuestra base de datos</span>}
+                    <span className="text-red-500">{errorMssg}</span>}
               </div>
               <div className="mt-12 text-sm font-display font-semibold text-gray-700 text-center">
                 ¿No recuerdas tu QUIF? <a className="cursor-pointer text-indigo-600 hover:text-indigo-800"

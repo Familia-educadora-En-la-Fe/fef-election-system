@@ -1,7 +1,126 @@
-import React from "react";
+import React, {useCallback, useEffect, useState} from "react";
+import {useParams} from "react-router-dom";
+import {collection, getDocs, query, where} from "firebase/firestore";
+import {db} from "../../App";
+import {User} from "../Dashbaord";
+import Swal from 'sweetalert2'
+
+type candidate = {
+  id: string,
+  names: string,
+}
 
 const Votation = () => {
-  return <div>Votation</div>;
+
+  const { quif } = useParams();
+  const [candidates, setCandidates] = useState<candidate[]>([])
+  const [user, setUser] = useState<User>()
+  const [selected, setSelected] = useState<string>('')
+
+  const getCandidates = useCallback(async () => {
+    const querySnapshot = await getDocs(collection(db, "candiadates"));
+    setCandidates([])
+
+    querySnapshot.forEach((doc) => {
+      const isCandidate = {
+        id: doc.id,
+        names: doc.data().names,
+      }
+      setCandidates(cand => [...cand, isCandidate])
+    });
+  }, [])
+
+  const getUser = useCallback(async () => {
+    const q = await query(collection(db, "users"), where("quif", "==", quif));
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+      const isUser = {
+        id: doc.id,
+        name: doc.data().name,
+        area: doc.data().area,
+        quif: doc.data().quif,
+        voted: (doc.data().voted ? 'Si' : 'No'),
+        rol: doc.data().rol,
+      }
+      setUser(isUser)
+    });
+  }, [])
+
+  useEffect(()=>{
+    getUser().catch(e => console.log(e))
+    getCandidates().catch(e => console.log(e))
+
+  },[])
+
+  useEffect(() => {
+    if(user?.voted === 'Si'){
+      return alert('Ya votaste')
+    }
+  },[user])
+
+  const handleVote = useCallback(async (e: any) => {
+    e.preventDefault()
+    Swal.fire({
+      title: 'Estas apunto de votar por '+ selected ,
+      text: "Una vez que votes, no podras cambiarlo ¿Estas segur@?!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      cancelButtonText: 'Cancelar',
+      confirmButtonText: 'Confirmar!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire(
+          'Exito!',
+          'Hemos registrado tu voto.',
+          'success'
+        )
+      }
+    })
+
+    console.log(selected)
+  },[selected])
+
+  const handleSelect =useCallback((e: any) => {
+    setSelected(e.target.value)
+  },[selected])
+
+  return (
+    <div className="flex justify-center items-center">
+      <div className="">
+        <div className="mt-12">
+          <div className="flex flex-row justify-center">
+            <h2 className="text-center text-4xl text-indigo-900 font-display font-semibold lg:text-left xl:text-5xl xl:text-bold">Hola! {user?.name} </h2>
+          </div>
+          <p className="text-center text-2xl text-indigo-900 font-display">Estas son las opciones para la votación de presidencia Regional!</p>
+          <div className="mt-12">
+            <form>
+              <div>
+                <div className="text-sm font-bold text-gray-700 tracking-wide">
+                  {candidates.map((candidate) => (
+                    <div className="flex flex-row justify-start text-2xl" key={candidate.id}>
+                      <input type="radio" id={candidate.id} name="candidate" value={candidate.names} onClick={handleSelect} />
+                      <label className="ml-2" htmlFor={candidate.id}>{candidate.names}</label>
+                    </div>
+                  ))}
+                </div>
+
+              </div>
+              <div className="mt-10">
+                <button type="submit" className="bg-indigo-500 text-gray-100 p-4 w-full rounded-full tracking-wide
+                                font-semibold font-display focus:outline-none focus:shadow-outline hover:bg-indigo-600
+                                shadow-lg" onClick={handleVote}>
+                  Votar
+                </button>
+
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default React.memo(Votation);
