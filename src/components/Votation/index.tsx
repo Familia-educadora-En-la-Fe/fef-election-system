@@ -83,8 +83,6 @@ const Votation = () => {
       })
     }
 
-
-
     Swal.fire({
       title: 'Estas apunto de votar por '+ selected ,
       text: "Una vez que votes, no podras cambiarlo ¿Estas segur@?!",
@@ -106,16 +104,11 @@ const Votation = () => {
             })
           }
         })
-
-        Swal.fire(
-          'Exito!',
-          'Hemos registrado tu voto.',
-          'success'
-        )
+        Swal.fire('Exito!', 'Hemos registrado tu voto.', 'success').then(()=>{
+          navigate('/')
+        })
       }
     })
-
-    console.log(selected)
   },[selected])
 
   const handleSelect =useCallback((e: any) => {
