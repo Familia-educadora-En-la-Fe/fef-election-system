@@ -4,6 +4,7 @@ import UserTable from "./UserTable";
 import StatsCard from "./StatsCard";
 import {collection, getDocs} from "firebase/firestore";
 import {db} from "../../App";
+import {candidate} from "../Votation";
 
 
 export type User = {
@@ -24,6 +25,8 @@ const Dashboard = () => {
   const [users, setUser] = useState<User[]>([])
   const [missing, setMissing] = useState<number>(0)
   const [hasVoted, setHasVoted] = useState<number>(0)
+  const [candidates, setCandidates] = useState<candidate[]>([])
+
 
   const getUsers = useCallback(async () => {
     const querySnapshot = await getDocs(collection(db, "users"));
@@ -51,8 +54,23 @@ const Dashboard = () => {
 
   },[auth])
 
+  const getCandidates = useCallback(async () => {
+    const querySnapshot = await getDocs(collection(db, "candiadates"));
+    setCandidates([])
+
+    querySnapshot.forEach((doc) => {
+      const isCandidate = {
+        id: doc.id,
+        names: doc.data().names,
+        votes: doc.data().votes,
+      }
+      setCandidates(cand => [...cand, isCandidate])
+    });
+  }, [])
+
   useEffect(()=>{
     getUsers()
+    getCandidates()
   },[])
   return (
     <>
@@ -67,6 +85,11 @@ const Dashboard = () => {
         <div className="flex flex-row justify-center mt-4">
           <StatsCard title="Faltan por Votar" value={missing} />
           <StatsCard title="Votaron" value={hasVoted}/>
+        </div>
+        <div className="flex flex-row justify-center mt-4">
+          {candidates.map((candidate) => (
+            <StatsCard title={candidate.names} value={candidate.votes}/>
+          ))}
         </div>
         <div className="mx-8">
           <UserTable users={users}/>

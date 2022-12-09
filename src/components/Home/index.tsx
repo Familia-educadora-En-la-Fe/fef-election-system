@@ -58,12 +58,12 @@ const Home = () => {
     }
 
     if(exists && alreadyVoted){
-      setErrorMssg('Lo sentimos este QUIF ya ha votado')
+      setErrorMssg('Lo sentimos este CUIF ya ha votado')
       setError(true)
       return
     }
 
-    setErrorMssg('Lo sentimos este QUIF no existe')
+    setErrorMssg('Lo sentimos este CUIF no esta activo')
     setError(true)
     return
 
@@ -86,7 +86,7 @@ const Home = () => {
             <div className="mt-12">
               <form>
                 <div>
-                  <div className="text-sm font-bold text-gray-700 tracking-wide">QUIF</div>
+                  <div className="text-sm font-bold text-gray-700 tracking-wide">CUIF</div>
                   <input
                     className="w-full text-lg py-2 border-b border-gray-300 focus:outline-none focus:border-indigo-500"
                     type="text"
@@ -108,7 +108,7 @@ const Home = () => {
                     <span className="text-red-500">{errorMssg}</span>}
               </div>
               <div className="mt-12 text-sm font-display font-semibold text-gray-700 text-center">
-                ¿No recuerdas tu QUIF? <a className="cursor-pointer text-indigo-600 hover:text-indigo-800"
+                ¿No recuerdas tu CUIF? <a className="cursor-pointer text-indigo-600 hover:text-indigo-800"
                                           href="mailto:contact@contacto.com">Contactanos</a>
               </div>
             </div>

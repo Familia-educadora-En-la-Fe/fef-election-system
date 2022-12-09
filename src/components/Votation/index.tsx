@@ -5,7 +5,7 @@ import {db} from "../../App";
 import {User} from "../Dashbaord";
 import Swal from 'sweetalert2'
 
-type candidate = {
+export type candidate = {
   id: string,
   names: string,
   votes: number,

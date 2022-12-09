@@ -12,7 +12,7 @@ export const columns:any = [
     sortable: true,
   },
   {
-    name: 'QUIF',
+    name: 'CUIF',
     selector:  (row: { quif: any; })=> row.quif,
     sortable: true,
 
