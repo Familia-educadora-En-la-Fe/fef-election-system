@@ -81,7 +81,7 @@ const Home = () => {
 
           <div className="mt-10 px-12 sm:px-24 md:px-48 lg:px-12 lg:mt-16 xl:px-24 xl:max-w-2xl ">
             <h2 className="ml-10 text-center text-4xl text-indigo-900 font-display font-semibold lg:text-left xl:text-5xl
-                    xl:text-bold">Ingresa tu QUIF </h2>
+                    xl:text-bold">Ingresa tu CUIF </h2>
 
             <div className="mt-12">
               <form>
@@ -90,7 +90,7 @@ const Home = () => {
                   <input
                     className="w-full text-lg py-2 border-b border-gray-300 focus:outline-none focus:border-indigo-500"
                     type="text"
-                    placeholder="Ejemplo: PASCH9810FEF"
+                    placeholder="Ejemplo: QSCH9810FEF"
                     onChange={(e) => setInputQuif(e.target.value)}
                     required/>
                 </div>
