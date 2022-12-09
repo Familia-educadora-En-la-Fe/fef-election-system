@@ -1,12 +1,12 @@
 {
   "files": {
     "main.css": "/fef-election-system/static/css/main.896c124a.css",
-    "main.js": "/fef-election-system/static/js/main.c50c585e.js",
+    "main.js": "/fef-election-system/static/js/main.fb32bb60.js",
     "static/js/27.30d48b76.chunk.js": "/fef-election-system/static/js/27.30d48b76.chunk.js",
     "index.html": "/fef-election-system/index.html"
   },
   "entrypoints": [
     "static/css/main.896c124a.css",
-    "static/js/main.c50c585e.js"
+    "static/js/main.fb32bb60.js"
   ]
 }
