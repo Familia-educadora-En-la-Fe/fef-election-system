@@ -116,39 +116,47 @@ const Votation = () => {
   },[selected])
 
   return (
-    <div className="flex justify-center items-center">
-      <div className="">
-        <div className="mt-12">
-          <div className="flex flex-row justify-center">
-            <h2 className="text-center text-4xl text-indigo-900 font-display font-semibold lg:text-left xl:text-5xl xl:text-bold">Hola! {user?.name} </h2>
-          </div>
-          <p className="text-center text-2xl text-indigo-900 font-display">Estas son las opciones para la votación de presidencia Regional!</p>
+    <div className="flex flex-col">
+      <div className="flex flex-row justify-center mt-2">
+        <img src="./images/fef-logo.png" className="rounded-full" width="150" height="150"/>
+      </div>
+      <div className="flex justify-center items-center mx-6 mt-2">
+        <div className="">
           <div className="mt-12">
-            <form>
-              <div>
-                <div className="text-sm font-bold text-gray-700 tracking-wide">
-                  {candidates.map((candidate) => (
-                    <div className="flex flex-row justify-start text-2xl" key={candidate.id}>
-                      <input type="radio" id={candidate.id} name="candidate" value={candidate.names} onClick={handleSelect} />
-                      <label className="ml-2" htmlFor={candidate.id}>{candidate.names}</label>
-                    </div>
-                  ))}
-                </div>
+            <div className="flex flex-row justify-center">
+              <h2 className="text-center text-4xl text-indigo-900 font-display font-semibold lg:text-left xl:text-5xl xl:text-bold">Hola! {user?.name} </h2>
+            </div>
+            <p className="text-center text-2xl text-indigo-900 font-display">Estas son las opciones para la votación de presidencia Regional!</p>
+            <div className="mt-12">
+              <form>
+                <div>
+                  <div className="text-sm font-bold text-gray-700 tracking-wide">
+                    {candidates.map((candidate) => (
+                      <div className="flex flex-row justify-start text-2xl mt-2" key={candidate.id}>
+                        <div className="flex flex-row align-middle h-full w-full">
+                          <input type="radio" id={candidate.id} name="candidate" value={candidate.names} onClick={handleSelect} className="w-6 h-6 mt-1" />
+                          <label className="ml-2" htmlFor={candidate.id}>{candidate.names}</label>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
 
-              </div>
-              <div className="mt-10">
-                <button type="submit" className="bg-indigo-500 text-gray-100 p-4 w-full rounded-full tracking-wide
+                </div>
+                <div className="mt-10">
+                  <button type="submit" className="bg-indigo-500 text-gray-100 p-4 w-full rounded-full tracking-wide
                                 font-semibold font-display focus:outline-none focus:shadow-outline hover:bg-indigo-600
                                 shadow-lg" onClick={handleVote}>
-                  Votar
-                </button>
+                    Votar
+                  </button>
 
-              </div>
-            </form>
+                </div>
+              </form>
+            </div>
           </div>
         </div>
       </div>
     </div>
+
   );
 };
 
