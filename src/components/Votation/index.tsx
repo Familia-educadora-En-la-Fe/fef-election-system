@@ -73,6 +73,13 @@ const Votation = () => {
 
   const handleVote = useCallback(async (e: any) => {
     e.preventDefault()
+    if(selected === '' || selected === undefined || selected === null){
+      return Swal.fire(
+        'Lo sentimos!',
+        'Debes seleccionar un candidato!',
+        'error'
+      )
+    }
     if(user === undefined || user === null){
       return Swal.fire(
         'Lo sentimos!',
@@ -94,9 +101,6 @@ const Votation = () => {
       confirmButtonText: 'Confirmar!'
     }).then((result) => {
       if (result.isConfirmed) {
-        const userVote = doc(db, "users", user.id);
-        updateDoc(userVote, {voted: true});
-
         candidates.forEach(cand => {
           if(cand.names === selected){
             updateDoc(doc(db, "candiadates", cand.id), {
@@ -105,6 +109,8 @@ const Votation = () => {
           }
         })
         Swal.fire('Exito!', 'Hemos registrado tu voto.', 'success').then(()=>{
+          const userVote = doc(db, "users", user.id);
+          updateDoc(userVote, {voted: true});
           navigate('/')
         })
       }
@@ -134,7 +140,7 @@ const Votation = () => {
                     {candidates.map((candidate) => (
                       <div className="flex flex-row justify-start text-2xl mt-2" key={candidate.id}>
                         <div className="flex flex-row align-middle h-full w-full">
-                          <input type="radio" id={candidate.id} name="candidate" value={candidate.names} onClick={handleSelect} className="w-6 h-6 mt-1" />
+                          <input type="radio" id={candidate.id} name="candidate" value={candidate.names} onClick={handleSelect} className="w-6 h-6 mt-1" required/>
                           <label className="ml-2" htmlFor={candidate.id}>{candidate.names}</label>
                         </div>
                       </div>
